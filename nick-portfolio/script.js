@@ -50,7 +50,7 @@ const projects = [
         description: "Resume, Portfolio, Project, all in one!",
         image: "images/websitecover.png",
         tech: ["Javascript", "HTML", "CSS"],
-        github: "https://github.com/Nickcreatescode",
+        github: "https://github.com/Nickcreatescode/Portfolio",
         demo: "#",
         showGithub: true,
         details: {
@@ -75,7 +75,7 @@ const projects = [
         core data processing, cleaning, and analytical techniques in Python.`,
         image: "images/datasetcover.png",
         tech: ["Python", "Pandas", "Numpy", "Scikit-Learn", "Regex", "Matplotlib"],
-        github: "https://github.com/Nickcreatescode",
+        github: "https://github.com/Nickcreatescode/datascience-project",
         demo: "#",
         details: {
             overview: `This project showcases the complete data analysis workflow using a randomly 
@@ -101,7 +101,7 @@ const projects = [
         description: "Honorable Mention: My first ever try at making a game. Just look at how far we've come.",
         image: "images/llamacover.png",
         tech: ["Python", "Pygame"],
-        github: "https://github.com/Nickcreatescode",
+        github: "https://github.com/Nickcreatescode/llamagame",
         demo: "#",
         details: {
             overview: "My first ever project. It's not pretty, it doesn't work very well, but it has a special place in my heart. This holy relic will forever be represented (at the end) of my portfolio. <br><br>There are two version of this game. One where the player has to jump over the haybails, and another where the player controls a flying llama and has to avoid falling haybails coming from the sky. Creative right? Wrong! The falling haybails was actually an accident that I decided to turn into a second version of the game.",
