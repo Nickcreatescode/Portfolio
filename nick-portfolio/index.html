@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nick Vela - Software Engineer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-code"></i>
+                <span>Nick Vela</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Nick <span class="highlight">Vela</span></h1>
+                <p class="tagline">while(alive) { code(); }</p>
+                <p class="description">
+                    Software Engineer focused on building clean, efficient, 
+                    and maintainable systems. I work across front-end and back-end 
+                    development, integrating modern frameworks with cloud-based 
+                    solutions to create reliable, scalable products. I bring strong 
+                    problem-solving skills, clear communication, and a structured 
+                    approach to every project I join.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn primary">View My Projects</a>
+                    <div class="social-links">
+                        <a href="https://github.com/Nickcreatescode" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/nickvela/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="mailto:niccjvela27@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="main-profile-picture">
+                    <div class="profile-frame">
+                        <img src="images/hero.jpeg" alt="Nick Vela Profile Photo" class="profile-image">
+                    </div>
+                    <div class="profile-accent"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About <span class="code-bracket">{</span> Me <span class="code-bracket">}</span></h2>
+            <p class="section-subtitle">// TODO: Write something clever about myself</p>
+            
+            <div class="about-content">
+                <div class="about-intro">
+                    <div class="code-block-section">
+                        <div class="code-header">
+                            <span class="file-name">about.js</span>
+                            <span class="file-status">✓ compiled successfully</span>
+                        </div>
+                        <div class="code-content">
+                            <p class="code-comment">/* 
+                             I am a thoughtful and dependable engineer who values clarity, collaboration, 
+                             and consistency. I bring a calm and organized presence to development teams, 
+                             keeping projects moving smoothly even when challenges come up. I take the time 
+                             to understand how each piece fits into the larger system and look for ways to 
+                             make that system stronger. I communicate clearly, ask good questions, and help 
+                             create an environment where others can do their best work. I care about writing 
+                             clean, maintainable code and about building software that people can trust.
+                             */</p>
+                            
+                            <p class="code-statement">
+                                <span class="code-keyword">if</span> (<span class="code-variable">problem</span> === <span class="code-string">"unsolvable"</span>) {<br>
+                                &nbsp;&nbsp;<span class="code-variable">solution</span> = <span class="code-function">drinkCoffee</span>() + <span class="code-function">thinkHarder</span>();<br>
+                                &nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-string">"Actually, it's possible!"</span>;<br>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <div class="resume-button-container">
+                        <a href="resume.pdf" class="btn resume-btn">
+                            <i class="fas fa-file-alt"></i>
+                            View Resume
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="skills-section">
+                    <div class="skills-header">
+                        <h3>Technical Expertise</h3>
+                        <p>A comprehensive overview of my development stack</p>
+                    </div>
+                    
+                    <div class="skills-grid">
+                        <div class="skill-category languages">
+                            <div class="skill-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h4>Coding Languages</h4>
+                            <div class="skill-list">
+                                <span>Python</span><span>C</span><span>C++</span>
+                                <span>Swift</span><span>Javascript</span><span>HTML5</span>
+                                <span>CSS</span><span>Shell Script</span><span>SQL</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category technologies">
+                            <div class="skill-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h4>Technologies</h4>
+                            <div class="skill-list">
+                                <span>Firebase</span><span>Firestore</span><span>SwiftUI</span>
+                                <span>Git</span><span>Bash</span><span>Vim</span><span>Xcode</span>
+                                <span>VS Code</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category libraries">
+                            <div class="skill-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h4>Libraries</h4>
+                            <div class="skill-list">
+                                <span>Pandas</span><span>NumPy</span><span>Regex</span>
+                                <span>Scikit-Learn</span><span>Matplotlib</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2>My Projects</h2>
+            <p class="section-subtitle">A showcase of my technical skills and creativity<br>Projects... Pokemon TCG style ;)</p>
+            
+            <div class="projects-container">
+                <button class="projects-nav-button prev" id="projectsPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="projects-scroll-container">
+                    <div class="projects-list" id="projectsList">
+                        <!-- Projects will be loaded from JavaScript -->
+                    </div>
+                </div>
+                <button class="projects-nav-button next" id="projectsNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p class="section-subtitle">Interested in working together? Let's discuss opportunities and how I can contribute to your team.</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>niccjvela27@gmail.com</p>
+                    <a href="mailto:niccjvela27@gmail.com" class="contact-link">Send Email</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fab fa-linkedin"></i>
+                    <h3>LinkedIn</h3>
+                    <p>nickvela</p>
+                    <a href="https://www.linkedin.com/in/nickvela/" target="_blank" class="contact-link">Connect</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fab fa-github"></i>
+                    <h3>GitHub</h3>
+                    <p>Nickcreatescode</p>
+                    <a href="https://github.com/Nickcreatescode" target="_blank" class="contact-link">View Profile</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Nick Vela. Built with HTML, CSS, and JavaScript.</p>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
