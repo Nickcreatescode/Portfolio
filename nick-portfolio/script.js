@@ -897,15 +897,6 @@ function setupProjectNavigation() {
         }
     }, { passive: false });
     
-    // Prevent horizontal touch scrolling but allow vertical
-    scrollContainer.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) {
-            // Allow single touch for vertical scrolling
-            return;
-        }
-        e.preventDefault();
-    }, { passive: false });
-    
     // Disable dragging but allow normal mouse interactions
     scrollContainer.style.cursor = 'default';
     scrollContainer.style.userSelect = 'auto';
@@ -1063,18 +1054,24 @@ function initializeInteractiveCircle() {
     }
     
     function handleTouchStart(e) {
-        e.preventDefault();
-        startDrag(e);
+        if (e.target === circle) {
+            e.preventDefault();
+            startDrag(e);
+        }
     }
     
     function handleTouchMove(e) {
-        e.preventDefault();
-        drag(e);
+        if (isDragging) {
+            e.preventDefault();
+            drag(e);
+        }
     }
     
     function handleTouchEnd(e) {
-        e.preventDefault();
-        endDrag();
+        if (isDragging) {
+            e.preventDefault();
+            endDrag();
+        }
     }
     
     function getScreenBounds() {
