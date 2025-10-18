@@ -49,7 +49,7 @@ const projects = [
         title: "Portfolio Website",
         description: "Resume, Portfolio, Project, all in one!",
         image: "images/websitecover.png",
-        tech: ["Javascript", "HTML", "CSS"],
+        tech: ["JavaScript", "HTML", "CSS"],
         github: "https://github.com/Nickcreatescode/Portfolio",
         demo: "#",
         showGithub: true,
@@ -70,9 +70,8 @@ const projects = [
     },
     {
         id: 3,
-        title: "Machine Learning Dataset Evaluation Project",
-        description: `A data analysis project that explores and visualizes a randomly generated dataset to demonstrate 
-        core data processing, cleaning, and analytical techniques in Python.`,
+        title: "Machine Learning Dataset Project",
+        description: "A data analysis project that explores and visualizes a randomly generated dataset.",
         image: "images/datasetcover.png",
         tech: ["Python", "Pandas", "Numpy", "Scikit-Learn", "Regex", "Matplotlib"],
         github: "https://github.com/Nickcreatescode/datascience-project",
