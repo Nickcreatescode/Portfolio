@@ -12,16 +12,12 @@ body {
     overflow-x: hidden;
     background: #fafafa;
     position: relative;
-    touch-action: manipulation;
-    -webkit-overflow-scrolling: touch;
 }
 
 
 
 html {
     scroll-behavior: smooth;
-    touch-action: manipulation;
-    -webkit-overflow-scrolling: touch;
 }
 
 .container {
@@ -1275,12 +1271,6 @@ html {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    html, body {
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-        touch-action: manipulation;
-    }
-    
     .nav-menu {
         position: fixed;
         left: -100%;
