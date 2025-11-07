@@ -361,7 +361,8 @@ html {
 /* Hide floating circle on mobile devices to prevent scrolling interference */
 @media (max-width: 768px) {
     .profile-accent {
-        display: none;
+        display: none !important;
+        visibility: hidden !important;
     }
     
     /* Ensure touch scrolling works properly on mobile */
@@ -378,6 +379,22 @@ html {
     /* Allow horizontal scrolling only for projects */
     .projects-list {
         touch-action: pan-x;
+    }
+}
+
+/* Additional mobile browser targeting */
+@media (max-width: 480px) {
+    .profile-accent {
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
+
+/* Target mobile devices with different orientations */
+@media screen and (max-device-width: 768px) {
+    .profile-accent {
+        display: none !important;
+        visibility: hidden !important;
     }
 }
 
