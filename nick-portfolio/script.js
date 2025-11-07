@@ -133,18 +133,37 @@ const projectsNextBtn = document.getElementById('projectsNext');
 let currentProjectIndex = 0;
 const projectsPerView = 3;
 
+// Simple mobile detection and circle hiding
+(function() {
+    function isMobileDevice() {
+        return window.innerWidth <= 768 || screen.width <= 768;
+    }
+    
+    // Hide circle on mobile devices
+    if (isMobileDevice()) {
+        const hideCircle = () => {
+            const circle = document.querySelector('.profile-accent');
+            if (circle) {
+                circle.style.display = 'none';
+            }
+        };
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', hideCircle);
+        } else {
+            hideCircle();
+        }
+    }
+})();
+
 // Initialize the website
 document.addEventListener('DOMContentLoaded', function() {
-    // Ensure body scrolling is enabled on mobile (critical fix for Chrome mobile)
-    if (window.innerWidth <= 768) {
-        // Force reset any potential overflow hidden from JavaScript
-        setTimeout(() => {
-            document.body.style.overflow = 'auto';
-            document.body.style.overflowX = 'hidden';
-            document.body.style.overflowY = 'auto';
-        }, 100); // Small delay to ensure all JS has loaded
-        console.log('Mobile scrolling safeguard enabled');
+    // Simple mobile detection for main script
+    function isMobileDevice() {
+        return window.innerWidth <= 768 || screen.width <= 768;
     }
+    
+    const isMobile = isMobileDevice();
     
     renderProjects();
     initializeAnimations();
@@ -155,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupProjectNavigation();
     initializeInteractiveCircle();
     
-    console.log('All functions enabled except mouse trail and interactive circle');
+    console.log('All functions enabled with mobile safeguards');
 });
 
 
@@ -280,12 +299,8 @@ function openProjectModal(projectId) {
     `;
 
     modal.style.display = 'block';
-    // Disable body scroll to prevent background scrolling when modal is open
-    // On mobile, we avoid changing overflow to prevent Chrome mobile scrolling bugs
-    if (window.innerWidth > 768) {
-        document.body.style.overflow = 'hidden';
-    }
-    // On mobile: don't change body overflow at all to prevent scrolling issues
+    // Disable body scroll to prevent background scrolling
+    document.body.style.overflow = 'hidden';
     
     // Reset modal scroll position to top
     const modalContent = document.querySelector('.modal-content');
@@ -396,12 +411,8 @@ function setupEventListeners() {
 // Close project modal
 function closeProjectModal() {
     modal.style.display = 'none';
-    // Only restore body scroll on desktop, leave mobile unchanged
-    if (window.innerWidth > 768) {
-        document.body.style.overflow = 'auto';
-    }
-    // Always ensure horizontal overflow is hidden (from CSS)
-    document.body.style.overflowX = 'hidden';
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
 }
 
 // Scroll modal images horizontally
@@ -909,25 +920,12 @@ function setupProjectNavigation() {
     // Initial state
     updateNavigationButtons();
     
-    // Allow vertical scrolling but prevent horizontal scrolling
-    // Only add wheel event prevention on desktop (not mobile)
+    // Horizontal scroll prevention (only on desktop)
     if (window.innerWidth > 768) {
         scrollContainer.addEventListener('wheel', (e) => {
-            // Only prevent horizontal scrolling, allow vertical
             if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
                 e.preventDefault();
             }
-        }, { passive: false });
-    }
-    
-    // Only add touch scrolling prevention on desktop (not mobile)
-    if (window.innerWidth > 768) {
-        scrollContainer.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
-                // Allow single touch for vertical scrolling
-                return;
-            }
-            e.preventDefault();
         }, { passive: false });
     }
     
@@ -953,12 +951,17 @@ document.head.appendChild(newAnimations);
 
 // Interactive Floating Circle Physics
 function initializeInteractiveCircle() {
+    // Skip interactive circle on mobile devices
+    if (window.innerWidth <= 768 || screen.width <= 768) {
+        return;
+    }
+    
     const circle = document.querySelector('.profile-accent');
     if (!circle) return;
     
     // Check if circle is actually visible (not hidden by CSS)
     const circleStyle = window.getComputedStyle(circle);
-    if (circleStyle.display === 'none') {
+    if (circleStyle.display === 'none' || circleStyle.visibility === 'hidden') {
         console.log('Circle is hidden by CSS, skipping initialization');
         return;
     }
@@ -997,15 +1000,10 @@ function initializeInteractiveCircle() {
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', endDrag);
     
-    // Touch events - only add on desktop to prevent mobile scrolling interference
-    if (window.innerWidth > 768) {
-        circle.addEventListener('touchstart', handleTouchStart, { passive: false });
-        document.addEventListener('touchmove', handleTouchMove, { passive: false });
-        circle.addEventListener('touchend', handleTouchEnd);
-        console.log('Touch events enabled for desktop circle interaction');
-    } else {
-        console.log('Touch events disabled to preserve mobile scrolling');
-    }
+    // Touch events for desktop interaction (mobile already filtered out above)
+    circle.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    circle.addEventListener('touchend', handleTouchEnd);
     
     function startDrag(e) {
         isDragging = true;
