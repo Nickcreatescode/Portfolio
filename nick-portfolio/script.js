@@ -135,14 +135,27 @@ const projectsPerView = 3;
 
 // Initialize the website
 document.addEventListener('DOMContentLoaded', function() {
+    // Ensure body scrolling is enabled on mobile (critical fix for Chrome mobile)
+    if (window.innerWidth <= 768) {
+        // Force reset any potential overflow hidden from JavaScript
+        setTimeout(() => {
+            document.body.style.overflow = 'auto';
+            document.body.style.overflowX = 'hidden';
+            document.body.style.overflowY = 'auto';
+        }, 100); // Small delay to ensure all JS has loaded
+        console.log('Mobile scrolling safeguard enabled');
+    }
+    
     renderProjects();
     initializeAnimations();
     setupEventListeners();
-    addMouseTrail();
+    // addMouseTrail(); // Known to be disabled on mobile
     addScrollTriggerEffects();
     addInteractiveElements();
     setupProjectNavigation();
     initializeInteractiveCircle();
+    
+    console.log('All functions enabled except mouse trail and interactive circle');
 });
 
 
@@ -267,7 +280,12 @@ function openProjectModal(projectId) {
     `;
 
     modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    // Disable body scroll to prevent background scrolling when modal is open
+    // On mobile, we avoid changing overflow to prevent Chrome mobile scrolling bugs
+    if (window.innerWidth > 768) {
+        document.body.style.overflow = 'hidden';
+    }
+    // On mobile: don't change body overflow at all to prevent scrolling issues
     
     // Reset modal scroll position to top
     const modalContent = document.querySelector('.modal-content');
@@ -339,13 +357,7 @@ function setupEventListeners() {
             scrollToTopBtn.style.display = 'none';
         }
 
-        // Hide navbar on scroll down, show on scroll up
-        const navbar = document.querySelector('.navbar');
-        if (window.pageYOffset > 100) {
-            navbar.style.transform = 'translateY(-100%)';
-        } else {
-            navbar.style.transform = 'translateY(0)';
-        }
+        // Navbar scroll effect removed - handled in addScrollTriggerEffects
     });
 
     scrollToTopBtn.addEventListener('click', () => {
@@ -384,7 +396,12 @@ function setupEventListeners() {
 // Close project modal
 function closeProjectModal() {
     modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
+    // Only restore body scroll on desktop, leave mobile unchanged
+    if (window.innerWidth > 768) {
+        document.body.style.overflow = 'auto';
+    }
+    // Always ensure horizontal overflow is hidden (from CSS)
+    document.body.style.overflowX = 'hidden';
 }
 
 // Scroll modal images horizontally
@@ -566,6 +583,9 @@ document.head.appendChild(styleSheet);
 
 // Add enhanced mouse trail effect
 function addMouseTrail() {
+    // Skip mouse trail on mobile devices to prevent scrolling interference
+    if (window.innerWidth <= 768) return;
+    
     const trail = [];
     const maxTrailLength = 15;
     let isMoving = false;
@@ -890,21 +910,26 @@ function setupProjectNavigation() {
     updateNavigationButtons();
     
     // Allow vertical scrolling but prevent horizontal scrolling
-    scrollContainer.addEventListener('wheel', (e) => {
-        // Only prevent horizontal scrolling, allow vertical
-        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-            e.preventDefault();
-        }
-    }, { passive: false });
+    // Only add wheel event prevention on desktop (not mobile)
+    if (window.innerWidth > 768) {
+        scrollContainer.addEventListener('wheel', (e) => {
+            // Only prevent horizontal scrolling, allow vertical
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
     
-    // Prevent horizontal touch scrolling but allow vertical
-    scrollContainer.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) {
-            // Allow single touch for vertical scrolling
-            return;
-        }
-        e.preventDefault();
-    }, { passive: false });
+    // Only add touch scrolling prevention on desktop (not mobile)
+    if (window.innerWidth > 768) {
+        scrollContainer.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                // Allow single touch for vertical scrolling
+                return;
+            }
+            e.preventDefault();
+        }, { passive: false });
+    }
     
     // Disable dragging but allow normal mouse interactions
     scrollContainer.style.cursor = 'default';
@@ -930,6 +955,13 @@ document.head.appendChild(newAnimations);
 function initializeInteractiveCircle() {
     const circle = document.querySelector('.profile-accent');
     if (!circle) return;
+    
+    // Check if circle is actually visible (not hidden by CSS)
+    const circleStyle = window.getComputedStyle(circle);
+    if (circleStyle.display === 'none') {
+        console.log('Circle is hidden by CSS, skipping initialization');
+        return;
+    }
     
     let isDragging = false;
     let dragStartX = 0;
@@ -965,10 +997,15 @@ function initializeInteractiveCircle() {
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', endDrag);
     
-    // Touch events for mobile
-    circle.addEventListener('touchstart', handleTouchStart, { passive: false });
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    circle.addEventListener('touchend', handleTouchEnd);
+    // Touch events - only add on desktop to prevent mobile scrolling interference
+    if (window.innerWidth > 768) {
+        circle.addEventListener('touchstart', handleTouchStart, { passive: false });
+        document.addEventListener('touchmove', handleTouchMove, { passive: false });
+        circle.addEventListener('touchend', handleTouchEnd);
+        console.log('Touch events enabled for desktop circle interaction');
+    } else {
+        console.log('Touch events disabled to preserve mobile scrolling');
+    }
     
     function startDrag(e) {
         isDragging = true;
