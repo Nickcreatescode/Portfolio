@@ -390,9 +390,9 @@ html {
         touch-action: manipulation;
     }
     
-    /* Allow horizontal scrolling only for projects */
+    /* Allow both horizontal and vertical scrolling for projects */
     .projects-list {
-        touch-action: pan-x;
+        touch-action: pan-x pan-y;
     }
 }
 
