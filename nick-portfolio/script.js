@@ -133,16 +133,48 @@ const projectsNextBtn = document.getElementById('projectsNext');
 let currentProjectIndex = 0;
 const projectsPerView = 3;
 
+// Simple mobile detection and circle hiding
+(function() {
+    function isMobileDevice() {
+        return window.innerWidth <= 768 || screen.width <= 768;
+    }
+    
+    // Hide circle on mobile devices
+    if (isMobileDevice()) {
+        const hideCircle = () => {
+            const circle = document.querySelector('.profile-accent');
+            if (circle) {
+                circle.style.display = 'none';
+            }
+        };
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', hideCircle);
+        } else {
+            hideCircle();
+        }
+    }
+})();
+
 // Initialize the website
 document.addEventListener('DOMContentLoaded', function() {
+    // Simple mobile detection for main script
+    function isMobileDevice() {
+        return window.innerWidth <= 768 || screen.width <= 768;
+    }
+    
+    const isMobile = isMobileDevice();
+    
     renderProjects();
     initializeAnimations();
     setupEventListeners();
-    addMouseTrail();
+    // addMouseTrail(); // Known to be disabled on mobile
     addScrollTriggerEffects();
     addInteractiveElements();
     setupProjectNavigation();
     initializeInteractiveCircle();
+    
+    console.log('All functions enabled with mobile safeguards');
 });
 
 
@@ -267,6 +299,7 @@ function openProjectModal(projectId) {
     `;
 
     modal.style.display = 'block';
+    // Disable body scroll to prevent background scrolling
     document.body.style.overflow = 'hidden';
     
     // Reset modal scroll position to top
@@ -339,13 +372,7 @@ function setupEventListeners() {
             scrollToTopBtn.style.display = 'none';
         }
 
-        // Hide navbar on scroll down, show on scroll up
-        const navbar = document.querySelector('.navbar');
-        if (window.pageYOffset > 100) {
-            navbar.style.transform = 'translateY(-100%)';
-        } else {
-            navbar.style.transform = 'translateY(0)';
-        }
+        // Navbar scroll effect removed - handled in addScrollTriggerEffects
     });
 
     scrollToTopBtn.addEventListener('click', () => {
@@ -384,6 +411,7 @@ function setupEventListeners() {
 // Close project modal
 function closeProjectModal() {
     modal.style.display = 'none';
+    // Restore body scroll
     document.body.style.overflow = 'auto';
 }
 
@@ -566,6 +594,9 @@ document.head.appendChild(styleSheet);
 
 // Add enhanced mouse trail effect
 function addMouseTrail() {
+    // Skip mouse trail on mobile devices to prevent scrolling interference
+    if (window.innerWidth <= 768) return;
+    
     const trail = [];
     const maxTrailLength = 15;
     let isMoving = false;
@@ -689,6 +720,9 @@ function triggerContactAnimation() {
 
 // Add interactive elements
 function addInteractiveElements() {
+    // Skip interactive effects on mobile devices
+    if (window.innerWidth <= 768) return;
+    
     // Add enhanced tilt effect to project cards (keep existing good physics)
     const projectCards = document.querySelectorAll('.project-card');
     const contactCards = document.querySelectorAll('.contact-card');
@@ -889,22 +923,14 @@ function setupProjectNavigation() {
     // Initial state
     updateNavigationButtons();
     
-    // Allow vertical scrolling but prevent horizontal scrolling
-    scrollContainer.addEventListener('wheel', (e) => {
-        // Only prevent horizontal scrolling, allow vertical
-        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-    
-    // Prevent horizontal touch scrolling but allow vertical
-    scrollContainer.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) {
-            // Allow single touch for vertical scrolling
-            return;
-        }
-        e.preventDefault();
-    }, { passive: false });
+    // Horizontal scroll prevention (only on desktop)
+    if (window.innerWidth > 768) {
+        scrollContainer.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
     
     // Disable dragging but allow normal mouse interactions
     scrollContainer.style.cursor = 'default';
@@ -928,8 +954,20 @@ document.head.appendChild(newAnimations);
 
 // Interactive Floating Circle Physics
 function initializeInteractiveCircle() {
+    // Skip interactive circle on mobile devices
+    if (window.innerWidth <= 768 || screen.width <= 768) {
+        return;
+    }
+    
     const circle = document.querySelector('.profile-accent');
     if (!circle) return;
+    
+    // Check if circle is actually visible (not hidden by CSS)
+    const circleStyle = window.getComputedStyle(circle);
+    if (circleStyle.display === 'none' || circleStyle.visibility === 'hidden') {
+        console.log('Circle is hidden by CSS, skipping initialization');
+        return;
+    }
     
     let isDragging = false;
     let dragStartX = 0;
@@ -965,7 +1003,7 @@ function initializeInteractiveCircle() {
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', endDrag);
     
-    // Touch events for mobile
+    // Touch events for desktop interaction (mobile already filtered out above)
     circle.addEventListener('touchstart', handleTouchStart, { passive: false });
     document.addEventListener('touchmove', handleTouchMove, { passive: false });
     circle.addEventListener('touchend', handleTouchEnd);
