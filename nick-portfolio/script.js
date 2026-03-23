@@ -1,6 +1,37 @@
 // Projects Data
 const projects = [
     {
+        id: 5,
+        title: "Locational Entrance Predictor",
+        description: "AI pipeline to predict building entrance locations using street-view detection and satellite imagery fallback.",
+        image: "images/entrancescover.png",
+        tech: ["Python", "PyTorch", "YOLOv8", "ResNet-18", "Leaflet", "DuckDB"],
+        github: "https://github.com/project-terraforma/nick-locational-predictions",
+        demo: "#",
+        showGithub: true,
+        details: {
+            overview: `Built during a research internship at Overture Maps Foundation, this project is an AI pipeline that predicts
+            building entrance locations at scale. The system combines a YOLOv8 street-view object detection model with a ResNet-18
+            satellite imagery CNN fallback, automatically switching between data sources depending on availability.
+            The pipeline increased entrance location coverage from 5.8% to 56% across a 500-point national ground-truth dataset,
+            covering 10x more locations than the street-view-only baseline while achieving lower median prediction error.<br><br>
+            Research findings were presented to engineers and leadership from Overture Maps Foundation sponsor companies including
+            Meta, Amazon, Microsoft, Niantic, and TomTom.`,
+            features: [
+                "YOLOv8 street-view model detects building entrances from ground-level imagery with high precision.",
+                "ResNet-18 satellite CNN fallback activates automatically when street-level imagery is unavailable.",
+                "Increased entrance coverage from 5.8% to 56% across a 500-point national ground-truth dataset.",
+                "Achieved lower median prediction error than the street-view-only baseline while covering 10x more locations.",
+                "Built a head-to-head accuracy evaluation framework comparing predictions against 500 manually verified ground-truth entrance points.",
+                "Automated Haversine distance statistics for quantitative error measurement across all predictions.",
+                "Interactive Leaflet comparison maps for visual side-by-side evaluation of model predictions.",
+                "Led a 4-person research team, directing project strategy and coordinating individual research approaches."
+            ],
+            images: ["images/entrances0.png", "images/entrances1.png", "images/entrances2.png", "images/entrances3.png", "images/entrances4.png", "images/entrances5.png", "images/entrances6.png"],
+            videoDemo: "None",
+        }
+    },
+    {
         id: 1,
         title: "Rallly - iOS Event App",
         description: "Full-stack app deployed on the appstore which helps student connect with events on campus.",
